@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema de Cálculo Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    @media (max-width: 640px) {
+      table thead { display: none; }
+      table tbody td {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 8px;
+        border-bottom: 1px solid #e5e7eb;
+           padding-top: 12px;
+      padding-bottom: 15px;
+      }
+      table tbody tr { 
+        display: flex; 
+        flex-direction: column; 
+        padding: 8px 0; }
+      table tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+        margin-bottom: 4px;
+        color: #4B5563;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans min-h-screen transition-colors duration-300">
+
+  <!-- TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <!-- BOTÃO FLUTUANTE (visível em todos os dispositivos) -->
+  <button onclick="abrirModal()" class="float-btn fixed bottom-6 right-6 
+    bg-blue-600 hover:bg-blue-700 text-white w-16 h-16 
+    rounded-full shadow-lg text-3xl flex items-center justify-center z-50">
+    <i data-lucide="plus"></i>
+  </button>
+
+  <!-- MODAL AÇÕES (mobile) -->
+  <div id="modal-acoes" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow-lg text-center fade-in">
+      <h3 class="text-lg font-bold mb-2">O que deseja fazer?</h3>
+      <button id="editarBtn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded w-full mb-2">Editar</button>
+      <button id="excluirBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded w-full">Excluir</button>
+      <button onclick="fecharModalAcoes()" class="text-gray-500 mt-2 underline">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="bg-blue-600 text-white text-center py-6 shadow">
+    <h1 class="text-2xl font-bold">Sistema de Cálculo Online</h1>
+    <p id="dataHora" class="text-sm mt-2"></p>
+  </header>
+
+  <!-- CARDS -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4 mt-8">
+    <div class="bg-green-100 border-l-4 border-green-600 p-4 shadow rounded">
+      <h3 class="text-sm font-semibold text-green-700">Total de Entradas</h3>
+      <p class="text-xl font-bold text-green-800" id="cardEntradas">R$ 0,00</p>
+    </div>
+    <div class="bg-red-100 border-l-4 border-red-600 p-4 shadow rounded">
+      <h3 class="text-sm font-semibold text-red-700">Total de Saídas</h3>
+      <p class="text-xl font-bold text-red-800" id="cardSaidas">R$ 0,00</p>
+    </div>
+    <div id="cardSaldoBox" class="bg-blue-100 border-l-4 border-blue-600 p-4 shadow rounded">
+      <h3 class="text-sm font-semibold text-blue-700">Saldo do Caixa</h3>
+      <p class="text-xl font-bold text-blue-800" id="cardSaldo">R$ 0,00</p>
+    </div>
+  </div>
+
+  <!-- CARDS DE CATEGORIA -->
+  <div class="max-w-7xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4" id="cardsCategorias"></div>
+
+  <!-- TABELA DE REGISTROS -->
+  <div class="max-w-7xl mx-auto mt-12 px-4">
+    <h2 class="text-xl font-bold mb-4">Registros</h2>
+    <div class="overflow-x-auto">
+      <table id="tabelaRegistros" class="display w-full bg-white dark:bg-gray-800 rounded shadow-md text-sm">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Quantidade</th>
+            <th>Total (R$)</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="mt-4 text-right text-lg font-bold">
+      Total Geral: <span id="totalGeral">R$ 0,00</span>
+    </div>
+  </div>
+
+  <!-- MODAL DE FORMULÁRIO -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
+      <button onclick="fecharModal()" class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Novo Cadastro</h2>
+      <form id="formulario">
+        <input type="hidden" id="registroId" />
+        <div class="mb-3">
+          <label class="block font-medium">Nome</label>
+          <input type="text" id="nome" class="w-full border px-4 py-2 rounded" required />
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Tipo de Movimentação</label>
+          <select id="entrada" class="w-full border px-4 py-2 rounded" required>
+            <option value="">Selecione</option>
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Categoria</label>
+          <select id="categoria" class="w-full border px-4 py-2 rounded" required>
+            <option value="">Selecione</option>
+            <option>caixa-inicial</option>
+            <option>cielo-cartão</option>
+            <option>cielo-pix</option>
+            <option>contratos</option>
+            <option>dinheiro</option>
+            <option>freezer</option>
+            <option>infiniti-crédito</option>
+            <option>infiniti-débito</option>
+            <option>infiniti-pix</option>
+            <option>retiradas</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Quantidade</label>
+          <input type="number" id="quantidade" class="w-full border px-4 py-2 rounded" required />
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Valor (R$)</label>
+          <input type="text" id="valor" class="w-full border px-4 py-2 rounded" required />
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>

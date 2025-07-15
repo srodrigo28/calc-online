@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema de Cálculo Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    @media (max-width: 640px) {
+      table thead { display: none; }
+      table tbody td { display: block; width: 100%; }
+      table tbody td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: block;
+      }
+      .table-responsive { overflow-x: auto; }
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #1a202c;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      display: none;
+      transition: all 0.3s ease-in-out;
+    }
+    .fade-in {
+      animation: fadeIn 0.4s ease-in forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white font-sans min-h-screen transition-colors duration-300">
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast"></div>
+
+  <!-- BOTÃO FLUTUANTE REDONDO -->
+  <button onclick="abrirModal()" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white w-16 h-16 rounded-full shadow-lg text-3xl flex items-center justify-center z-50">
+    <i data-lucide="plus"></i>
+  </button>
+
+  <!-- MODAL DE AÇÕES MOBILE -->
+  <div id="modal-acoes" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white dark:bg-gray-800 p-4 rounded shadow-lg text-center fade-in">
+      <h3 class="text-lg font-bold mb-2">Ações</h3>
+      <button id="editarBtn" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded w-full mb-2">Editar</button>
+      <button id="excluirBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded w-full">Excluir</button>
+      <button onclick="fecharModalAcoes()" class="text-gray-500 mt-2 underline">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- TABELA -->
+  <div class="max-w-7xl mx-auto mt-12 px-4 table-responsive">
+    <h2 class="text-xl font-bold mb-4">Registros</h2>
+    <div class="overflow-x-auto">
+      <table id="tabelaRegistros" class="display w-full bg-white dark:bg-gray-800 rounded shadow-md text-sm">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Nome</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Quantidade</th>
+            <th>Total (R$)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="mt-4 text-right text-lg font-bold">
+      Total Geral: <span id="totalGeral">R$ 0,00</span>
+    </div>
+  </div>
+
+  <!-- SWITCH DARK MODE -->
+  <div class="fixed top-6 left-6 z-50">
+    <label class="flex items-center space-x-2">
+      <input type="checkbox" id="darkToggle" class="form-checkbox" />
+      <span>Modo Escuro</span>
+    </label>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+    let longPressTimer;
+    let selectedRowId;
+
+    // Long press
+    $(document).on('touchstart mousedown', '#tabelaRegistros tbody tr', function () {
+      selectedRowId = $(this).data('id');
+      longPressTimer = setTimeout(() => {
+        $('#modal-acoes').removeClass('hidden');
+      }, 700);
+    });
+    $(document).on('touchend mouseup', function () {
+      clearTimeout(longPressTimer);
+    });
+
+    function fecharModalAcoes() {
+      $('#modal-acoes').addClass('hidden');
+      selectedRowId = null;
+    }
+
+    $('#editarBtn').on('click', () => {
+      iniciarEdicao(selectedRowId);
+      fecharModalAcoes();
+    });
+
+    $('#excluirBtn').on('click', async () => {
+      const confirmar = confirm("Deseja mesmo excluir este registro?");
+      if (!confirmar) return;
+      await excluirRegistro(selectedRowId);
+      mostrarToast('Registro excluído com sucesso.');
+      fecharModalAcoes();
+    });
+
+    // Toast
+    function mostrarToast(mensagem) {
+      const toast = $('#toast');
+      toast.text(mensagem).fadeIn();
+      setTimeout(() => toast.fadeOut(), 3000);
+    }
+
+    // Dark mode com persistência
+    const darkToggle = $('#darkToggle');
+    const savedDark = localStorage.getItem('modo-escuro') === 'true';
+    if (savedDark) $('body').addClass('dark');
+    darkToggle.prop('checked', savedDark);
+
+    darkToggle.on('change', function () {
+      const ativo = this.checked;
+      $('body').toggleClass('dark', ativo);
+      localStorage.setItem('modo-escuro', ativo);
+    });
+  </script>
+
+</body>
+</html>

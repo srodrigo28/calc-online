@@ -1,0 +1,13 @@
+{
+  "name": "test-cli-supabase",
+  "type": "module",
+  "scripts": {
+    "inserir": "node test-cli.js inserir",
+    "apagar": "node test-cli.js apagar",
+    "listar": "node test-cli.js listar"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.4",
+    "dotenv": "^16.3.1"
+  }
+}

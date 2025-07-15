@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sistema de Cálculo Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white text-center py-6 shadow">
+    <h1 class="text-2xl font-bold">Bem-vindo ao nosso sistema de cálculo online</h1>
+    <p id="dataHora" class="text-sm mt-2"></p>
+  </header>
+
+  <!-- Cards Principais -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4 mt-8">
+    <div class="bg-green-100 border-l-4 border-green-600 p-4 shadow rounded">
+      <h3 class="text-sm font-semibold text-green-700">Total de Entradas</h3>
+      <p class="text-xl font-bold text-green-800" id="cardEntradas">R$ 0,00</p>
+    </div>
+    <div class="bg-red-100 border-l-4 border-red-600 p-4 shadow rounded">
+      <h3 class="text-sm font-semibold text-red-700">Total de Saídas</h3>
+      <p class="text-xl font-bold text-red-800" id="cardSaidas">R$ 0,00</p>
+    </div>
+    <div id="cardSaldoBox" class="bg-blue-100 border-l-4 border-blue-600 p-4 shadow rounded">
+      <h3 class="text-sm font-semibold text-blue-700">Saldo do Caixa</h3>
+      <p class="text-xl font-bold text-blue-800" id="cardSaldo">R$ 0,00</p>
+    </div>
+  </div>
+
+  <!-- Cards de Totais por Categoria -->
+  <div class="max-w-7xl mx-auto mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4" id="cardsCategorias"></div>
+
+  <!-- Modal -->
+  <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-6 rounded-lg w-full max-w-xl shadow-lg relative">
+      <button onclick="fecharModal()" class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl">&times;</button>
+      <h2 class="text-xl font-bold mb-4">Novo Cadastro</h2>
+      <form id="formulario">
+        <div class="mb-3">
+          <label class="block font-medium">Nome</label>
+          <input type="text" id="nome" class="w-full border px-4 py-2 rounded" required />
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Tipo de Movimentação</label>
+          <select id="entrada" class="w-full border px-4 py-2 rounded" required>
+            <option value="">Selecione</option>
+            <option value="entrada">Entrada</option>
+            <option value="saida">Saída</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Categoria</label>
+          <select id="categoria" class="w-full border px-4 py-2 rounded" required>
+            <option value="">Selecione</option>
+            <option>caixa-inicial</option>
+            <option>cielo-cartão</option>
+            <option>cielo-pix</option>
+            <option>contratos</option>
+            <option>dinheiro</option>
+            <option>freezer</option>
+            <option>infiniti-crédito</option>
+            <option>infiniti-débito</option>
+            <option>infiniti-pix</option>
+            <option>retiradas</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Quantidade</label>
+          <input type="number" id="quantidade" class="w-full border px-4 py-2 rounded" required />
+        </div>
+        <div class="mb-3">
+          <label class="block font-medium">Valor (R$)</label>
+          <input type="text" id="valor" class="w-full border px-4 py-2 rounded" required />
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 mt-4 rounded hover:bg-blue-700">Cadastrar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Botão flutuante -->
+  <button onclick="abrirModal()" class="fixed bottom-6 right-6 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg text-3xl z-40">+</button>
+
+  <!-- Tabela -->
+  <div class="max-w-7xl mx-auto mt-12 px-4">
+    <h2 class="text-xl font-bold mb-4">Registros</h2>
+    <table id="tabelaRegistros" class="display w-full bg-white rounded shadow-md text-sm">
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Nome</th>
+          <th>Tipo</th>
+          <th>Categoria</th>
+          <th>Quantidade</th>
+          <th>Total (R$)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="mt-4 text-right text-lg font-bold">
+      Total Geral: <span id="totalGeral">R$ 0,00</span>
+    </div>
+  </div>
+
+  <script>
+    let totalGeral = 0;
+    let totaisCategorias = {};
+    let totalEntradas = 0;
+    let totalSaidas = 0;
+
+    function atualizarDataHora() {
+      const agora = new Date();
+      $('#dataHora').text('Data e hora atual: ' + agora.toLocaleString('pt-BR'));
+    }
+    setInterval(atualizarDataHora, 1000);
+    atualizarDataHora();
+
+    function abrirModal() {
+      $('#modal').removeClass('hidden');
+    }
+
+    function fecharModal() {
+      $('#modal').addClass('hidden');
+      $('#formulario')[0].reset();
+      $('#quantidade').prop('disabled', false);
+    }
+
+    $('#valor').on('input', function () {
+      let val = $(this).val().replace(/\D/g, '');
+      val = (val / 100).toFixed(2) + '';
+      val = val.replace('.', ',');
+      val = val.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+      $(this).val(val);
+    });
+
+    $('#categoria').on('change', function () {
+      const cat = $(this).val();
+      if (cat === 'caixa-inicial' || cat === 'contratos') {
+        $('#quantidade').val(1).prop('disabled', true);
+      } else {
+        $('#quantidade').prop('disabled', false);
+      }
+    });
+
+    const tabela = $('#tabelaRegistros').DataTable({
+      order: [[3, 'asc'], [1, 'asc']],
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json'
+      }
+    });
+
+    function atualizarCards() {
+      $('#cardsCategorias').empty();
+      Object.entries(totaisCategorias).forEach(([cat, total]) => {
+        $('#cardsCategorias').append(`
+          <div class="bg-white border-l-4 border-blue-600 p-4 shadow rounded">
+            <h3 class="text-sm font-semibold text-gray-500">${cat}</h3>
+            <p class="text-xl font-bold text-gray-800">R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+          </div>
+        `);
+      });
+
+      $('#cardEntradas').text(`R$ ${totalEntradas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`);
+      $('#cardSaidas').text(`R$ ${totalSaidas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`);
+
+      const saldo = totalEntradas - totalSaidas;
+      $('#cardSaldo').text(`R$ ${saldo.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`);
+
+      const cardBox = $('#cardSaldoBox');
+      if (saldo >= 0) {
+        cardBox.removeClass('bg-red-100 border-red-600 text-red-800')
+               .addClass('bg-blue-100 border-blue-600 text-blue-800');
+      } else {
+        cardBox.removeClass('bg-blue-100 border-blue-600 text-blue-800')
+               .addClass('bg-red-100 border-red-600 text-red-800');
+      }
+    }
+
+    $('#formulario').on('submit', function (e) {
+      e.preventDefault();
+
+      const nome = $('#nome').val().trim();
+      const entrada = $('#entrada').val();
+      const categoria = $('#categoria').val();
+      const quantidade = parseFloat($('#quantidade').val() || 1);
+      const valor = parseFloat($('#valor').val().replace(/\./g, '').replace(',', '.'));
+      const dataRegistro = new Date().toLocaleString('pt-BR');
+
+      if (!nome || !entrada || !categoria || isNaN(valor)) {
+        alert('Preencha todos os campos corretamente.');
+        return;
+      }
+
+      const total = quantidade * valor;
+      totalGeral += total;
+
+      if (entrada === 'entrada') totalEntradas += total;
+      if (entrada === 'saida') totalSaidas += total;
+
+      totaisCategorias[categoria] = (totaisCategorias[categoria] || 0) + total;
+
+      atualizarCards();
+
+      tabela.row.add([
+        dataRegistro,
+        nome,
+        entrada,
+        categoria,
+        quantidade,
+        `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+      ]).draw();
+
+      $('#totalGeral').text(`R$ ${totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`);
+      fecharModal();
+    });
+  </script>
+</body>
+</html>
