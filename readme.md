@@ -1,4 +1,5 @@
-
+#### Preview
+<img src="./preview/web.png" alt="">
 
 #### SQL Estrutura + Views Inteligentes
 ````
@@ -76,7 +77,7 @@ from
 
 ````
 
-### Supa Key
+#### Supa
 ```URL
 https://qlmmdhklaqyxpdctykjk.supabase.co
 ```
@@ -85,7 +86,7 @@ https://qlmmdhklaqyxpdctykjk.supabase.co
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbW1kaGtsYXF5eHBkY3R5a2prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2MzMxNzEsImV4cCI6MjA2NDIwOTE3MX0.EZyjWN4QT-Yf5f46dUKSE-sfQoWMIXtIAQPsekQvqzA
 ```
 
-### Iniciando os teste
+#### Iniciando os teste
 ```
 -- Inserção de dados simulados para testes
 insert into public.registros_financeiros (nome, tipo, categoria, quantidade, valor_unitario, valor_total)
@@ -104,7 +105,7 @@ values
 truncate table public.registros_financeiros restart identity cascade;
 ```
 
-### Rodar os testes
+#### Rodar os testes
 ```
 npm run inserir
 npm run listar
