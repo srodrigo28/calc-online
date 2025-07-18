@@ -64,7 +64,7 @@ function aplicarMascaraValor() {
 function controleCategoriaQuantidade() {
   $('#categoria').on('change', () => {
     const val = $('#categoria').val();
-    if (val === 'caixa-inicial' || val === 'contratos') {
+    if (val === 'caixa-inicial') {
       $('#quantidade').val(1).prop('disabled', true);
     } else {
       $('#quantidade').prop('disabled', false);
