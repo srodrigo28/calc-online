@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Construção: Plataforma E-Leitor Seguro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>
+        /* Cor de destaque: Roxo (Criatividade/Tech) */
+        .sidebar-link.active { color: #8b5cf6; font-weight: 600; border-left-color: #8b5cf6; }
+        .dark .sidebar-link.active { color: #a78bfa; border-left-color: #a78bfa; }
+        .mobile-menu-item .item-number { transition: all 0.3s ease; }
+        .mobile-menu-item.active .item-number { background-color: #8b5cf6; color: white; }
+        .dark .mobile-menu-item.active .item-number { background-color: #a78bfa; color: #1e293b; }
+        .mobile-menu-item.expanded { background-color: #f5f3ff; }
+        .dark .mobile-menu-item.expanded { background-color: #4c1d95; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } .dark ::-webkit-scrollbar-track { background: #2d3748; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <button id="theme-toggle" class="fixed bottom-4 right-4 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md">
+        <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    </button>
+    
+    <div id="mobile-menu" class="lg-hidden fixed top-0 left-0 right-0 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-lg z-40"><div id="mobile-menu-items" class="flex items-center space-x-2 overflow-x-auto pb-1"></div></div>
+    <div class="flex">
+        <aside class="fixed top-0 left-0 h-screen w-64 p-4 border-r border-slate-200 dark:border-slate-800 hidden lg:block"><h2 class="text-xl font-bold mb-4">Roteiro de Construção</h2><nav><ol id="sidebar-nav" class="space-y-2"></ol></nav></aside>
+        <main class="w-full lg:ml-64 p-4 md:p-8 pt-20 lg:pt-8 pb-24">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-12"><h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Plano de Construção: Plataforma E-Leitor</h1><p class="text-lg text-slate-600 dark:text-slate-400 mt-3">Uma análise técnica e o roteiro de desenvolvimento do MVP.</p></header>
+                <div id="manual-content" class="space-y-16">
+                    
+                    <section id="step-1" class="manual-section">
+                        <h2 data-title="Análise das Tecnologias" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">1. Análise das Tecnologias Iniciais</h2>
+                        <p class="text-slate-600 dark:text-slate-400">A escolha de stack é moderna, produtiva e extremamente adequada para este projeto, permitindo construir um produto de alta qualidade rapidamente com uma equipe enxuta.</p>
+                        <ul class="list-disc list-inside mt-4 space-y-3 pl-4">
+                            <li><strong>Next.js 15, TypeScript, TailwindCSS 4:</strong> O "dream team" do frontend, garantindo performance, segurança de tipos e velocidade de estilização.</li>
+                            <li><strong>ShadCN/ui:</strong> Acelera massivamente o desenvolvimento da UI, mantendo total controle e garantindo acessibilidade.</li>
+                            <li><strong>Framer Motion:</strong> Adiciona um toque de profissionalismo com animações fluidas.</li>
+                            <li><strong>Supabase:</strong> A escolha perfeita para o backend de um MVP, fornecendo Banco de Dados, Autenticação, Storage e APIs automáticas.</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-purple-50 dark:bg-slate-800 border-l-4 border-purple-400 dark:border-purple-500 rounded text-center">
+                            <p class="font-bold text-lg text-purple-800 dark:text-purple-300">Veredito da Tecnologia: Nota 10/10</p>
+                        </div>
+                    </section>
+
+                    <section id="step-2" class="manual-section">
+                        <h2 data-title="Análise das Funcionalidades" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">2. Análise das Funcionalidades do Piloto</h2>
+                        <p class="text-slate-600 dark:text-slate-400">As funcionalidades propostas são excelentes e cobrem o ciclo completo do produto. São ambiciosas, mas alcançáveis para um MVP robusto.</p>
+                        <ul class="list-disc list-inside mt-4 space-y-3 pl-4">
+                            <li><strong>Dashboard Vitrine com Busca:</strong> Essencial. A "busca por texto inteligente" (dentro dos PDFs) é muito complexa e deve ser deixada para uma fase futura. Foco na busca simples por título/autor.</li>
+                            <li><strong>Header Dinâmico:</strong> Padrão e necessário para exibir o estado de login.</li>
+                            <li><strong>Tela de Login Animada:</strong> Ótimo toque de design, viável com Framer Motion.</li>
+                            <li><strong>Dashboard Duplo (Autor/Usuário):</strong> Excelente ideia. Um simples toggle no dashboard resolve a troca de papéis.</li>
+                            <li><strong>Funções do Vendedor (CRUD):</strong> O coração do lado do vendedor e a maior tarefa do MVP.</li>
+                            <li><strong>Funções do Usuário (Leitura e Progresso):</strong> O monitor de progresso é um diferencial importante e deve ser incluído.</li>
+                        </ul>
+                    </section>
+                    
+                    <section id="step-3" class="manual-section">
+                        <h2 data-title="Bloco 0: A Fundação" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">3. Bloco 0: A Fundação</h2>
+                        <p class="text-slate-600 dark:text-slate-400">O objetivo desta fase inicial é preparar todo o terreno para a construção, configurando o projeto e o banco de dados.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                           <li><strong>Setup do Projeto:</strong> Iniciar projeto Next.js 15, instalar e configurar Tailwind, ShadCN e Framer Motion.</li>
+                           <li><strong>Setup do Backend:</strong> Criar o projeto no Supabase e configurar as variáveis de ambiente (`.env.local`).</li>
+                           <li><strong>Schema do Banco:</strong> Definir e criar as tabelas iniciais no Supabase.</li>
+                        </ul>
+
+                        <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">🛡️ Ponto de Atenção (Schema):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">Ao criar as tabelas, defina as **chaves estrangeiras** (`foreign key`) corretamente (ex: `books.autor_id` referenciando `profiles.id`). Isso garante a integridade relacional. Comece a pensar nas **Políticas de Segurança (RLS)** desde o início.</p>
+                        </div>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">-- Tabela 'profiles' para dados de usuário (vendedor/leitor)
+CREATE TABLE public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  full_name TEXT,
+  avatar_url TEXT,
+  is_author BOOLEAN DEFAULT false
+);
+
+-- Tabela 'books' para os metadados dos livros
+CREATE TABLE public.books (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  author_id UUID NOT NULL REFERENCES public.profiles(id),
+  title TEXT NOT NULL,
+  description TEXT,
+  price NUMERIC(8, 2) NOT NULL,
+  cover_url TEXT, -- Path no Supabase Storage
+  pdf_url TEXT,   -- Path no Supabase Storage
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Tabela de junção 'user_books' para registrar as compras
+CREATE TABLE public.user_books (
+  user_id UUID NOT NULL REFERENCES public.profiles(id),
+  book_id UUID NOT NULL REFERENCES public.books(id),
+  purchased_at TIMESTAMPTZ DEFAULT now(),
+  last_page_read INT DEFAULT 0,
+  progress_percentage NUMERIC(5, 2) DEFAULT 0.00,
+  PRIMARY KEY (user_id, book_id)
+);
+</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section id="step-4" class="manual-section">
+                        <h2 data-title="Bloco 1: Autenticação" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">4. Bloco 1: Autenticação de Usuários</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Com a base pronta, o primeiro passo funcional é permitir que usuários entrem e saiam da plataforma.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                           <li>Construir a UI de Login/Cadastro, incluindo o efeito de "flip card".</li>
+                           <li>Implementar as funções `signIn`, `signUp` e `signOut` do Supabase Auth.</li>
+                           <li>Criar o Header Dinâmico que muda conforme o estado da sessão.</li>
+                           <li>Criar um gatilho (trigger) no Supabase para que, após um `signUp` na `auth.users`, uma nova linha seja criada automaticamente na tabela `profiles`.</li>
+                        </ul>
+                    </section>
+
+                    <section id="step-5" class="manual-section">
+                        <h2 data-title="Bloco 2: Lado do Vendedor" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">5. Bloco 2: O Lado do Vendedor</h2>
+                        <p class="text-slate-600 dark:text-slate-400">O coração do MVP. Permitir que um autor (um usuário com `is_author = true`) publique e gerencie seus livros.</p>
+                         <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                           <li>Desenvolver o layout do Dashboard com o toggle "Modo Autor / Modo Leitor".</li>
+                           <li>Implementar o CRUD completo de Livros, que é a maior tarefa desta fase.</li>
+                           <li>O formulário de criação deve ser protegido e incluir o upload de arquivos (capa e PDF) para o **Supabase Storage**.</li>
+                        </ul>
+                         <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">🛡️ Ponto de Atenção (Segurança):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">Os uploads para o Supabase Storage devem ser protegidos. Use as Políticas de Segurança (RLS) do Storage para garantir que apenas o autor do livro possa fazer upload/atualizar os arquivos da sua própria obra.</p>
+                        </div>
+                    </section>
+
+                    <section id="step-6" class="manual-section">
+                        <h2 data-title="Bloco 3: Vitrine e Leitor" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">6. Bloco 3: A Vitrine Pública e o Leitor Seguro</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Com livros no banco, é hora de exibi-los ao público e construir o principal diferencial: o leitor seguro.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                            <li>Construir a página da vitrine que busca e exibe todos os livros.</li>
+                            <li>Implementar a busca simples por título/autor.</li>
+                            <li>Construir o Leitor Seguro v1, usando uma biblioteca como `react-pdf`.</li>
+                            <li>Garantir que o leitor busque o PDF a partir de uma URL segura e assinada do Supabase Storage, que expira após um tempo.</li>
+                        </ul>
+                    </section>
+
+                    <section id="step-7" class="manual-section">
+                        <h2 data-title="Bloco 4 & 5" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">7. Blocos 4 & 5: Lado do Usuário e Finalização</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Para fechar o ciclo do piloto, criamos a experiência do leitor e o sistema de feedback.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                           <li><strong>Simular Compra:</strong> Para o piloto, um botão "Adquirir" que cria a relação na tabela `user_books` é suficiente.</li>
+                           <li><strong>Biblioteca do Usuário:</strong> No "Modo Leitor" do dashboard, listar os livros adquiridos.</li>
+                           <li><strong>Monitor de Progresso:</strong> Exibir a barra de progresso buscando os dados da tabela `user_books`.</li>
+                           <li><strong>Atualização de Progresso:</strong> Fazer com que o Leitor Seguro, a cada mudança de página, atualize os dados de progresso no banco.</li>
+                           <li><strong>Sistema de Avaliação:</strong> Implementar o formulário de avaliação e a lógica para salvar na tabela `ratings`.</li>
+                        </ul>
+                         <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">🔄 Ponto de Atenção (Robustez):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">A atualização de progresso pode gerar muitas chamadas ao banco. Use uma técnica de "debounce" para enviar a atualização apenas a cada X segundos ou quando o usuário pausar a leitura, evitando sobrecarregar o backend.</p>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            hljs.highlightAll();
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const updateIcons = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+            updateIcons();
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcons();
+            });
+            const sections = document.querySelectorAll('.manual-section');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const mobileMenu = document.getElementById('mobile-menu-items');
+            sections.forEach((section, index) => {
+                const id = section.id;
+                const title = section.querySelector('h2').dataset.title;
+                const step = index + 1;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = `${step}. ${title}`;
+                a.className = 'sidebar-link block border-l-2 border-transparent pl-4 py-1 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors';
+                li.appendChild(a);
+                if (sidebarNav) sidebarNav.appendChild(li);
+                const mobileLink = document.createElement('a');
+                mobileLink.href = `#${id}`;
+                mobileLink.className = 'mobile-menu-item flex-shrink-0 flex items-center p-1 rounded-full bg-slate-200 dark:bg-slate-700 transition-all duration-300 ease-in-out';
+                mobileLink.innerHTML = `<span class="item-number flex items-center justify-center h-8 w-8 rounded-full font-bold text-slate-600 dark:text-slate-300">${step}</span><span class="item-title hidden ml-2 mr-2 font-semibold whitespace-nowrap text-sm">${title}</span>`;
+                if (mobileMenu) mobileMenu.appendChild(mobileLink);
+                [a, mobileLink].forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = section.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        if (window.innerWidth < 1024) {
+                            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                                item.classList.remove('expanded', 'bg-purple-100', 'dark:bg-purple-900');
+                                item.querySelector('.item-title').classList.add('hidden');
+                            });
+                            mobileLink.classList.add('expanded', 'bg-purple-100', 'dark:bg-purple-900');
+                            mobileLink.querySelector('.item-title').classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('.code-container pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.textContent = 'Copiar';
+                btn.className = 'absolute top-2 right-2 px-2 py-1 text-xs rounded bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors opacity-50 hover:opacity-100';
+                pre.parentNode.insertBefore(btn, pre);
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pre.querySelector('code').innerText).then(() => {
+                        btn.textContent = 'Copiado!';
+                        setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+                    });
+                });
+            });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+                    const mobileItem = document.querySelector(`.mobile-menu-item[href="#${id}"]`);
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                        if (sidebarLink) sidebarLink.classList.add('active');
+                        document.querySelectorAll('.mobile-menu-item').forEach(i => i.classList.remove('active'));
+                        if (mobileItem) mobileItem.classList.add('active');
+                        if(mobileItem && !mobileItem.classList.contains('expanded')) {
+                           mobileItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
+                    }
+                });
+            }, { rootMargin: "-20% 0px -80% 0px" });
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Negócio: Plataforma E-Leitor Seguro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>
+        /* Cor de destaque: Teal (Profissional/Tech) */
+        .sidebar-link.active { color: #14b8a6; font-weight: 600; border-left-color: #14b8a6; }
+        .dark .sidebar-link.active { color: #2dd4bf; border-left-color: #2dd4bf; }
+        .mobile-menu-item .item-number { transition: all 0.3s ease; }
+        .mobile-menu-item.active .item-number { background-color: #14b8a6; color: white; }
+        .dark .mobile-menu-item.active .item-number { background-color: #2dd4bf; color: #1e293b; }
+        .mobile-menu-item.expanded { background-color: #f0fdfa; }
+        .dark .mobile-menu-item.expanded { background-color: #0f766e; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } .dark ::-webkit-scrollbar-track { background: #2d3748; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <button id="theme-toggle" class="fixed bottom-4 right-4 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md">
+        <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    </button>
+    
+    <div id="mobile-menu" class="lg:hidden fixed top-0 left-0 right-0 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-lg z-40"><div id="mobile-menu-items" class="flex items-center space-x-2 overflow-x-auto pb-1"></div></div>
+    <div class="flex">
+        <aside class="fixed top-0 left-0 h-screen w-64 p-4 border-r border-slate-200 dark:border-slate-800 hidden lg:block"><h2 class="text-xl font-bold mb-4">Índice do Plano</h2><nav><ol id="sidebar-nav" class="space-y-2"></ol></nav></aside>
+        <main class="w-full lg:ml-64 p-4 md:p-8 pt-20 lg:pt-8 pb-24">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-12"><h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Plano de Negócio: Plataforma E-Leitor Seguro</h1><p class="text-lg text-slate-600 dark:text-slate-400 mt-3">Uma análise de mercado, concorrência e estratégia de lançamento.</p></header>
+                <div id="manual-content" class="space-y-16">
+                    
+                    <section id="step-1" class="manual-section">
+                        <h2 data-title="Modelo de Negócio" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">1. Modelo de Negócio e Monetização</h2>
+                        <p class="text-slate-600 dark:text-slate-400">A filosofia da plataforma é a **parceria no sucesso**. Eliminamos as barreiras de entrada para o vendedor, garantindo que a plataforma só ganha dinheiro quando ele também ganha.</p>
+                        
+                        <div class="mt-6 grid md:grid-cols-2 gap-6">
+                            <div class="p-6 bg-slate-200 dark:bg-slate-800 rounded-lg">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">👤 Para o VENDEDOR (Autor/Editora)</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>Cadastro e Publicação:</strong> 100% Gratuito, sem mensalidades ou limites de livros.</li>
+                                    <li><strong>Custo por Venda (Comissão):</strong> Taxa de **10%** sobre o valor de cada venda.</li>
+                                    <li><strong>O que a comissão cobre?</strong> Custos operacionais, processamento de pagamento, segurança anti-pirataria (DRM) e manutenção da plataforma.</li>
+                                    <li><strong>Sem Venda, Sem Custo:</strong> Se não vender, não paga absolutamente nada.</li>
+                                </ul>
+                            </div>
+                            <div class="p-6 bg-slate-200 dark:bg-slate-800 rounded-lg">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">📖 Para o LEITOR (Comprador)</h3>
+                                <ul class="list-disc list-inside space-y-2">
+                                    <li><strong>Cadastro e Acesso:</strong> 100% Gratuito.</li>
+                                    <li><strong>Custo de Aquisição:</strong> Paga apenas o preço do e-book, definido pelo vendedor.</li>
+                                    <li><strong>Recursos Gratuitos:</strong> Acesso a todos os recursos da plataforma (leitor seguro, leitura por IA, anotações, etc.) sem custo adicional.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="step-2" class="manual-section">
+                        <h2 data-title="Estratégia de Lançamento" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">2. Estratégia de Lançamento: "Programa Pioneiros"</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Para resolver o problema do "ovo e da galinha" e popular o marketplace, lançaremos com uma oferta exclusiva e por tempo limitado para adquirir os primeiros **100 vendedores qualificados**.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">A Oferta "Pioneiros":</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-3 pl-4">
+                            <li>
+                                <strong>🏆 Benefício Principal:</strong> Os 100 primeiros vendedores que publicarem ao menos 1 livro terão uma taxa de comissão reduzida e **vitalícia de 8%** (em vez de 10%) para sempre.
+                            </li>
+                            <li>
+                                <strong>⭐ Benefícios Secundários:</strong>
+                                <ul class="list-disc list-inside mt-2 ml-6">
+                                    <li>Suporte prioritário e personalizado.</li>
+                                    <li>Destaque especial na página inicial do marketplace.</li>
+                                    <li>Acesso direto à equipe de produto para influenciar o futuro da plataforma.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <section id="step-3" class="manual-section">
+                        <h2 data-title="Roteiro de Criação" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">3. Roteiro de Criação (Por Fases)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">O plano de construção é faseado para validar o modelo de negócio rapidamente e evoluir com base no feedback dos usuários.</p>
+                        
+                        <div class="mt-6 space-y-8">
+                            <div class="p-6 border border-slate-300 dark:border-slate-700 rounded-lg">
+                                <h3 class="text-xl font-bold text-teal-500 dark:text-teal-400">Fase 1: MVP (Produto Mínimo Viável)</h3>
+                                <p class="text-sm mt-1 mb-4"><strong>Objetivo:</strong> Lançar a plataforma funcional para atrair os "Pioneiros" e validar o fluxo de venda segura.</p>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>Portal do Vendedor:</strong> Cadastro, upload de PDF, cadastro de informações do livro (preço, capa).</li>
+                                    <li><strong>Checkout:</strong> Geração de link de venda com gateway de pagamento.</li>
+                                    <li><strong>Biblioteca do Leitor:</strong> Cadastro na compra e lista de livros adquiridos.</li>
+                                    <li><strong>Leitor Seguro:</strong> Leitor web sem botão de download e com marca d'água dinâmica.</li>
+                                </ul>
+                            </div>
+                            <div class="p-6 border border-slate-300 dark:border-slate-700 rounded-lg">
+                                <h3 class="text-xl font-bold text-teal-500 dark:text-teal-400">Fase 2: Valor Agregado e Retenção</h3>
+                                <p class="text-sm mt-1 mb-4"><strong>Objetivo:</strong> Fazer com que os primeiros usuários amem a plataforma.</p>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>Leitor Aprimorado:</strong> Salvar progresso de leitura, modo noturno, destaques e anotações.</li>
+                                    <li><strong>IA para Leitores:</strong> Implementação da leitura em áudio (Text-to-Speech).</li>
+                                    <li><strong>Ferramentas para Vendedores:</strong> Dashboard de vendas e sistema de cupons de desconto.</li>
+                                </ul>
+                            </div>
+                            <div class="p-6 border border-slate-300 dark:border-slate-700 rounded-lg">
+                                <h3 class="text-xl font-bold text-teal-500 dark:text-teal-400">Fase 3: Inteligência de Dados e Efeito de Rede</h3>
+                                <p class="text-sm mt-1 mb-4"><strong>Objetivo:</strong> Introduzir diferenciais de IA e transformar o site em um verdadeiro marketplace.</p>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>Dashboard de Analytics com IA (Premium):</strong> Painel com dados de engajamento do leitor (partes mais lidas, taxa de finalização, etc.).</li>
+                                    <li><strong>Modelo de Assinatura (Opcional):</strong> Vendedores podem assinar um plano para ter acesso a esses dados avançados.</li>
+                                    <li><strong>Marketplace Público:</strong> Vitrine de livros com busca e categorias.</li>
+                                    <li><strong>Prova Social:</strong> Sistema de avaliações e comentários.</li>
+                                </ul>
+                            </div>
+                             <div class="p-6 border border-slate-300 dark:border-slate-700 rounded-lg">
+                                <h3 class="text-xl font-bold text-teal-500 dark:text-teal-400">Fase 4: Expansão do Ecossistema</h3>
+                                <p class="text-sm mt-1 mb-4"><strong>Objetivo:</strong> Consolidar a liderança no nicho.</p>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>Ferramentas de Escala:</strong> Programa de afiliados para os livros.</li>
+                                    <li><strong>Aplicativos Dedicados:</strong> Apps mobile (iOS/Android) para leitura offline.</li>
+                                    <li><strong>IA Avançada:</strong> Funcionalidades premium como "Converse com o livro" e resumos automáticos.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="step-4" class="manual-section">
+                        <h2 data-title="Análise e Pontos Críticos" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">4. Análise e Pontos Críticos</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Para que este plano de negócio se torne uma realidade robusta e segura, alguns pontos técnicos e de privacidade são fundamentais.</p>
+                        
+                        <div class="mt-6 space-y-4">
+                            <div class="p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                                <h3 class="font-semibold text-yellow-800 dark:text-yellow-300">🛡️ Segurança Anti-Pirataria (DRM)</h3>
+                                <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">O "Leitor Seguro" é o coração do negócio. A implementação deve ir além de desabilitar o download. Considere usar **marcas d'água dinâmicas e invisíveis** que identifiquem o comprador original em caso de vazamento, e criptografar o conteúdo que é transmitido para o leitor.</p>
+                            </div>
+                            <div class="p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                                <h3 class="font-semibold text-yellow-800 dark:text-yellow-300">⚖️ Privacidade de Dados (LGPD)</h3>
+                                <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">A Fase 3 (Analytics com IA) é poderosa, mas envolve dados sensíveis sobre o comportamento de leitura. Para estar em conformidade com a LGPD, os dados apresentados aos vendedores devem ser **100% agregados e anonimizados**. O vendedor pode saber que "80% dos leitores terminaram o capítulo 5", mas nunca que "João da Silva parou de ler na página 42".</p>
+                            </div>
+                            <div class="p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                                <h3 class="font-semibold text-yellow-800 dark:text-yellow-300">🔄 Robustez Técnica</h3>
+                                <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">O armazenamento dos e-books deve ser feito em um serviço de object storage seguro, como o **Supabase Storage**, com as permissões de acesso rigorosamente controladas por políticas de segurança (RLS). O leitor web precisa ser otimizado para renderizar PDFs grandes de forma eficiente, sem sobrecarregar o navegador do usuário.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            hljs.highlightAll();
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            
+            const updateIcons = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+            
+            updateIcons();
+
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcons();
+            });
+
+            const sections = document.querySelectorAll('.manual-section');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const mobileMenu = document.getElementById('mobile-menu-items');
+
+            sections.forEach((section, index) => {
+                const id = section.id;
+                const title = section.querySelector('h2').dataset.title;
+                const step = index + 1;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = `${step}. ${title}`;
+                a.className = 'sidebar-link block border-l-2 border-transparent pl-4 py-1 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors';
+                li.appendChild(a);
+                if (sidebarNav) sidebarNav.appendChild(li);
+
+                const mobileLink = document.createElement('a');
+                mobileLink.href = `#${id}`;
+                mobileLink.className = 'mobile-menu-item flex-shrink-0 flex items-center p-1 rounded-full bg-slate-200 dark:bg-slate-700 transition-all duration-300 ease-in-out';
+                mobileLink.innerHTML = `<span class="item-number flex items-center justify-center h-8 w-8 rounded-full font-bold text-slate-600 dark:text-slate-300">${step}</span><span class="item-title hidden ml-2 mr-2 font-semibold whitespace-nowrap text-sm">${title}</span>`;
+                if (mobileMenu) mobileMenu.appendChild(mobileLink);
+
+                [a, mobileLink].forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = section.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        if (window.innerWidth < 1024) {
+                            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                                item.classList.remove('expanded', 'bg-teal-100', 'dark:bg-teal-900');
+                                item.querySelector('.item-title').classList.add('hidden');
+                            });
+                            mobileLink.classList.add('expanded', 'bg-teal-100', 'dark:bg-teal-900');
+                            mobileLink.querySelector('.item-title').classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+
+            document.querySelectorAll('.code-container pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.textContent = 'Copiar';
+                btn.className = 'absolute top-2 right-2 px-2 py-1 text-xs rounded bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors opacity-50 hover:opacity-100';
+                pre.parentNode.insertBefore(btn, pre);
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pre.querySelector('code').innerText).then(() => {
+                        btn.textContent = 'Copiado!';
+                        setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+                    });
+                });
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+                    const mobileItem = document.querySelector(`.mobile-menu-item[href="#${id}"]`);
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                        if (sidebarLink) sidebarLink.classList.add('active');
+                        document.querySelectorAll('.mobile-menu-item').forEach(i => i.classList.remove('active'));
+                        if (mobileItem) mobileItem.classList.add('active');
+                        if(mobileItem && !mobileItem.classList.contains('expanded')) {
+                           mobileItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
+                    }
+                });
+            }, { rootMargin: "-20% 0px -80% 0px" });
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

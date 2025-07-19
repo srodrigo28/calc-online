@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Construção: Teste Piloto E-Leitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>
+        /* Cor de destaque: Indigo (Inovação/Estratégia) */
+        .sidebar-link.active { color: #6366f1; font-weight: 600; border-left-color: #6366f1; }
+        .dark .sidebar-link.active { color: #818cf8; border-left-color: #818cf8; }
+        .mobile-menu-item .item-number { transition: all 0.3s ease; }
+        .mobile-menu-item.active .item-number { background-color: #6366f1; color: white; }
+        .dark .mobile-menu-item.active .item-number { background-color: #818cf8; color: #1e293b; }
+        .mobile-menu-item.expanded { background-color: #eef2ff; }
+        .dark .mobile-menu-item.expanded { background-color: #3730a3; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } .dark ::-webkit-scrollbar-track { background: #2d3748; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <button id="theme-toggle" class="fixed bottom-4 right-4 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md">
+        <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    </button>
+    
+    <div id="mobile-menu" class="lg:hidden fixed top-0 left-0 right-0 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-lg z-40"><div id="mobile-menu-items" class="flex items-center space-x-2 overflow-x-auto pb-1"></div></div>
+    
+    <div class="flex">
+        <aside class="fixed top-0 left-0 h-screen w-64 p-4 border-r border-slate-200 dark:border-slate-800 hidden lg:block"><h2 class="text-xl font-bold mb-4">Roteiro do Piloto</h2><nav><ol id="sidebar-nav" class="space-y-2"></ol></nav></aside>
+        <main class="w-full lg:ml-64 p-4 md:p-8 pt-20 lg:pt-8 pb-24">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-12"><h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Plano de Construção: Teste Piloto E-Leitor</h1><p class="text-lg text-slate-600 dark:text-slate-400 mt-3">Um roteiro enxuto para validar o marketplace de livros digitais.</p></header>
+                <div id="manual-content" class="space-y-16">
+                    
+                    <section id="step-1" class="manual-section">
+                        <h2 data-title="Conceito e Telas" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">1. Conceito e Telas Essenciais</h2>
+                        <p class="text-slate-600 dark:text-slate-400">O objetivo do piloto é validar o interesse de autores e leitores em um novo marketplace de nicho, antes de construir funcionalidades complexas como o leitor seguro e o checkout financeiro.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Hipóteses a Validar:</h3>
+                        <ol class="list-decimal list-inside mt-4 space-y-2 pl-4">
+                            <li>Autores independentes têm interesse em cadastrar suas obras em uma nova plataforma focada em seu nicho?</li>
+                            <li>Leitores demonstrarão interesse de compra/leitura pelas obras catalogadas?</li>
+                        </ol>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Telas Essenciais para o Piloto:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                            <li><strong>Home/Vitrine:</strong> Exibe os livros com busca simples por título/autor.</li>
+                            <li><strong>Página do Livro:</strong> Detalhes completos da obra com um botão "Tenho Interesse!".</li>
+                            <li><strong>Autenticação:</strong> Tela única de Login/Cadastro.</li>
+                            <li><strong>Dashboard:</strong> Painel unificado com modo "Leitor" (lista de interesses) e modo "Autor" (gerenciador de livros).</li>
+                            <li><strong>Formulário do Livro:</strong> Tela para o autor criar/editar os dados do livro e fazer upload da capa.</li>
+                        </ul>
+                    </section>
+
+                    <section id="step-2" class="manual-section">
+                        <h2 data-title="Etapa 1: Fundação" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">2. Etapa 1: Fundação e Autenticação</h2>
+                        <p class="text-slate-600 dark:text-slate-400"><strong>Objetivo:</strong> Ter um sistema onde usuários possam se cadastrar, logar e ter seus perfis criados.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Definição do Banco de Dados Simplificado:</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Crie as tabelas abaixo no Supabase. O schema já inclui as relações e políticas de segurança (RLS) essenciais para o piloto.</p>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">-- Tabela 'profiles' para dados de usuário (vendedor/leitor)
+CREATE TABLE public.profiles (
+  id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  full_name TEXT,
+  is_author BOOLEAN DEFAULT false,
+  is_pioneer BOOLEAN DEFAULT false -- Para o "Programa Pioneiros"
+);
+-- Habilita RLS
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+-- Policies para a tabela profiles (ex: usuário só pode editar seu próprio perfil)
+CREATE POLICY "Users can view all profiles." ON public.profiles FOR SELECT USING (true);
+CREATE POLICY "Users can update their own profile." ON public.profiles FOR UPDATE USING (auth.uid() = id);
+
+-- Tabela 'books' para os metadados dos livros
+CREATE TABLE public.books (
+  id UUID PRIMARY KEY DEFAULT extensions.uuid_generate_v4(),
+  author_id UUID NOT NULL REFERENCES public.profiles(id),
+  title TEXT NOT NULL,
+  category TEXT,
+  description TEXT,
+  price NUMERIC(8, 2) NOT NULL,
+  cover_url TEXT, -- Path no Supabase Storage
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+-- Habilita RLS
+ALTER TABLE public.books ENABLE ROW LEVEL SECURITY;
+-- Policies para a tabela books (ex: todos podem ver, mas só o autor pode editar/deletar)
+CREATE POLICY "Books are viewable by everyone." ON public.books FOR SELECT USING (true);
+CREATE POLICY "Authors can insert their own books." ON public.books FOR INSERT WITH CHECK (auth.uid() = author_id);
+CREATE POLICY "Authors can update their own books." ON public.books FOR UPDATE USING (auth.uid() = author_id);
+CREATE POLICY "Authors can delete their own books." ON public.books FOR DELETE USING (auth.uid() = author_id);
+
+-- Tabela 'interesses' para validar a demanda
+CREATE TABLE public.interesses (
+  id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+  user_id UUID NOT NULL REFERENCES public.profiles(id),
+  book_id UUID NOT NULL REFERENCES public.books(id),
+  created_at TIMESTAMPTZ DEFAULT now(),
+  CONSTRAINT "interesses_user_book_unique" UNIQUE (user_id, book_id)
+);
+-- Habilita RLS
+ALTER TABLE public.interesses ENABLE ROW LEVEL SECURITY;
+-- Policies para a tabela interesses (usuário só pode gerenciar seu próprio interesse)
+CREATE POLICY "Users can manage their own interests." ON public.interesses FOR ALL USING (auth.uid() = user_id);
+</code></pre>
+                        </div>
+                         <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">⚖️ Ponto de Atenção (Privacidade):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">Desde o início, sua aplicação coletará dados de usuários. Garanta que o formulário de cadastro inclua um checkbox para aceitar os Termos de Serviço e a Política de Privacidade.</p>
+                        </div>
+                    </section>
+                    
+                    <section id="step-3" class="manual-section">
+                        <h2 data-title="Etapa 2: Lado do Vendedor" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">3. Etapa 2: O Lado do Vendedor</h2>
+                        <p class="text-slate-600 dark:text-slate-400"><strong>Objetivo:</strong> Permitir que os "Pioneiros" publiquem e gerenciem suas obras.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas Principais:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                            <li>Construir a página do Dashboard com o seletor de modo "Leitor/Autor".</li>
+                            <li>Na visão "Autor", implementar o CRUD (Criar, Ler, Atualizar, Deletar) de livros.</li>
+                            <li>O formulário de criação deve permitir o upload da imagem de capa para o **Supabase Storage**.</li>
+                            <li>Exibir os stats simples: "Total de Livros Publicados" e "Total de Interesses Recebidos" (contando registros na tabela `interesses` para os livros do autor).</li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">🛡️ Ponto de Atenção (Segurança):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">Configure as políticas do Supabase Storage para que um autor só possa fazer upload de capas para seus próprios livros. Isso geralmente é feito criando pastas com o `user_id` do autor no nome (ex: `covers/user-abc-123/minha-capa.png`).</p>
+                        </div>
+                    </section>
+                    
+                    <section id="step-4" class="manual-section">
+                        <h2 data-title="Etapa 3: Exposição e Validação" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">4. Etapa 3: Exposição Pública e Validação</h2>
+                        <p class="text-slate-600 dark:text-slate-400"><strong>Objetivo:</strong> Expor as obras cadastradas e medir o interesse do público leitor.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas Principais:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                            <li>Construir a `HomeVitrine` que busca todos os livros da tabela `books` e os exibe.</li>
+                            <li>Implementar a busca simples que filtra os livros por título ou autor.</li>
+                            <li>Programar o botão **"Tenho Interesse!"** na página de detalhes do livro.</li>
+                        </ul>
+                         <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">🔄 Ponto de Atenção (Robustez):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">A lógica do botão "Tenho Interesse!" deve ser idempotente: um usuário só pode registrar interesse em um mesmo livro uma única vez. A constraint `UNIQUE` que adicionamos na tabela `interesses` já garante isso no nível do banco de dados, protegendo contra cliques duplicados.</p>
+                        </div>
+                    </section>
+
+                    <section id="step-5" class="manual-section">
+                        <h2 data-title="Etapa 4: Fechando o Ciclo" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">5. Etapa 4: Fechando o Ciclo do Piloto</h2>
+                        <p class="text-slate-600 dark:text-slate-400"><strong>Objetivo:</strong> Finalizar a experiência do usuário leitor e preparar para o lançamento do teste.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tarefas Principais:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                            <li>Na visão "Modo Leitor" do Dashboard, listar os livros em que o usuário demonstrou interesse (fazendo um `JOIN` entre `interesses` e `books`).</li>
+                            <li>Realizar o polimento final de toda a interface, garantindo a responsividade.</li>
+                            <li>Lançar o teste, convidando os "Pioneiros" e começando a analisar os dados da tabela `interesses` para validar as hipóteses.</li>
+                        </ul>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            hljs.highlightAll();
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const updateIcons = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+            updateIcons();
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcons();
+            });
+            const sections = document.querySelectorAll('.manual-section');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const mobileMenu = document.getElementById('mobile-menu-items');
+            sections.forEach((section, index) => {
+                const id = section.id;
+                const title = section.querySelector('h2').dataset.title;
+                const step = index + 1;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = `${step}. ${title}`;
+                a.className = 'sidebar-link block border-l-2 border-transparent pl-4 py-1 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors';
+                li.appendChild(a);
+                if (sidebarNav) sidebarNav.appendChild(li);
+                const mobileLink = document.createElement('a');
+                mobileLink.href = `#${id}`;
+                mobileLink.className = 'mobile-menu-item flex-shrink-0 flex items-center p-1 rounded-full bg-slate-200 dark:bg-slate-700 transition-all duration-300 ease-in-out';
+                mobileLink.innerHTML = `<span class="item-number flex items-center justify-center h-8 w-8 rounded-full font-bold text-slate-600 dark:text-slate-300">${step}</span><span class="item-title hidden ml-2 mr-2 font-semibold whitespace-nowrap text-sm">${title}</span>`;
+                if (mobileMenu) mobileMenu.appendChild(mobileLink);
+                [a, mobileLink].forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = section.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        if (window.innerWidth < 1024) {
+                            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                                item.classList.remove('expanded', 'bg-indigo-100', 'dark:bg-indigo-900');
+                                item.querySelector('.item-title').classList.add('hidden');
+                            });
+                            mobileLink.classList.add('expanded', 'bg-indigo-100', 'dark:bg-indigo-900');
+                            mobileLink.querySelector('.item-title').classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('.code-container pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.textContent = 'Copiar';
+                btn.className = 'absolute top-2 right-2 px-2 py-1 text-xs rounded bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors opacity-50 hover:opacity-100';
+                pre.parentNode.insertBefore(btn, pre);
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pre.querySelector('code').innerText).then(() => {
+                        btn.textContent = 'Copiado!';
+                        setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+                    });
+                });
+            });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+                    const mobileItem = document.querySelector(`.mobile-menu-item[href="#${id}"]`);
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                        if (sidebarLink) sidebarLink.classList.add('active');
+                        document.querySelectorAll('.mobile-menu-item').forEach(i => i.classList.remove('active'));
+                        if (mobileItem) mobileItem.classList.add('active');
+                        if(mobileItem && !mobileItem.classList.contains('expanded')) {
+                           mobileItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
+                    }
+                });
+            }, { rootMargin: "-20% 0px -80% 0px" });
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

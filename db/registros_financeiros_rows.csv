@@ -1,0 +1,14 @@
+id,nome,tipo,categoria,quantidade,valor_unitario,valor_total,data_cadastro
+27,mensalidades,entrada,contratos,5,120,600,2025-07-19 00:40:03.955714+00
+28,mensalidades,entrada,contratos,2,155,310,2025-07-19 00:40:29.106919+00
+29,mensalidades,entrada,contratos,1,170,170,2025-07-19 00:40:53.001576+00
+30,caixa inicial,entrada,caixa-inicial,1,82.8,82.8,2025-07-19 00:41:18.84004+00
+31,entrada,entrada,contratos,1,780,780,2025-07-19 00:41:55.060488+00
+32,FREEZER,entrada,freezer,1,51,51,2025-07-19 00:42:27.106421+00
+33,saida,saida,dinheiro,1,75,75,2025-07-19 00:42:59.812334+00
+34,mercado pago,saida,cielo-cartão,1,120,120,2025-07-19 00:43:57.91137+00
+35,cielo pix,saida,cielo-pix,1,134.5,134.5,2025-07-19 00:44:38.353622+00
+36,cielo carta,saida,cielo-cartão,1,254.5,254.5,2025-07-19 00:45:11.917884+00
+37,infi cred,saida,infiniti-crédito,1,970,970,2025-07-19 00:46:28.004871+00
+38,inf.deb,saida,infiniti-débito,1,58.5,58.5,2025-07-19 00:47:04.766535+00
+39,inf pix,saida,infiniti-pix,1,245,245,2025-07-19 00:47:35.918655+00

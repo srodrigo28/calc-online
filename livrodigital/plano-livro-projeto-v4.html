@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano Final: Teste Piloto E-Leitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>
+        /* Cor de destaque: Verde (Crescimento/Novo Projeto) */
+        .sidebar-link.active { color: #22c55e; font-weight: 600; border-left-color: #22c55e; }
+        .dark .sidebar-link.active { color: #4ade80; border-left-color: #4ade80; }
+        .mobile-menu-item .item-number { transition: all 0.3s ease; }
+        .mobile-menu-item.active .item-number { background-color: #22c55e; color: white; }
+        .dark .mobile-menu-item.active .item-number { background-color: #4ade80; color: #1e293b; }
+        .mobile-menu-item.expanded { background-color: #f0fdf4; }
+        .dark .mobile-menu-item.expanded { background-color: #166534; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } .dark ::-webkit-scrollbar-track { background: #2d3748; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <button id="theme-toggle" class="fixed bottom-4 right-4 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md">
+        <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    </button>
+    
+    <div id="mobile-menu" class="lg:hidden fixed top-0 left-0 right-0 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-lg z-40"><div id="mobile-menu-items" class="flex items-center space-x-2 overflow-x-auto pb-1"></div></div>
+    <div class="flex">
+        <aside class="fixed top-0 left-0 h-screen w-64 p-4 border-r border-slate-200 dark:border-slate-800 hidden lg:block"><h2 class="text-xl font-bold mb-4">Índice do Piloto</h2><nav><ol id="sidebar-nav" class="space-y-2"></ol></nav></aside>
+        <main class="w-full lg:ml-64 p-4 md:p-8 pt-20 lg:pt-8 pb-24">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-12"><h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Plano Final Detalhado para o Teste Piloto</h1><p class="text-lg text-slate-600 dark:text-slate-400 mt-3">Uma análise refinada dos modelos de dados, telas e sequência de criação.</p></header>
+                <div id="manual-content" class="space-y-16">
+                    
+                    <section id="step-1" class="manual-section">
+                        <h2 data-title="O Modelo de Dados" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">1. Definição Final de Campos (O Modelo de Dados)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Esta é a estrutura de dados detalhada e otimizada para o piloto, focada em coletar as informações essenciais e minimizar o atrito no cadastro.</p>
+                        
+                        <h3 class="text-xl font-semibold mt-6 mb-2">Tabela `profiles` (Usuários e Vendedores)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm mt-4">
+                                <thead class="text-left bg-slate-200 dark:bg-slate-800">
+                                    <tr>
+                                        <th class="p-2">Nome do Campo</th>
+                                        <th class="p-2">Tipo de Dado</th>
+                                        <th class="p-2">Obrigatório?</th>
+                                        <th class="p-2">Descrição e Recomendações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700">
+                                        <td class="p-2"><code>id</code></td>
+                                        <td class="p-2"><code>UUID</code></td>
+                                        <td class="p-2">✅ Sim</td>
+                                        <td class="p-2">Chave primária (FK de `auth.users`).</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700">
+                                        <td class="p-2"><code>email</code></td>
+                                        <td class="p-2"><code>Texto</code></td>
+                                        <td class="p-2">✅ Sim</td>
+                                        <td class="p-2">Único por usuário.</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700">
+                                        <td class="p-2"><code>full_name</code></td>
+                                        <td class="p-2"><code>Texto</code></td>
+                                        <td class="p-2">✅ Sim</td>
+                                        <td class="p-2">Nome completo, essencial no cadastro.</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700">
+                                        <td class="p-2"><code>is_author</code></td>
+                                        <td class="p-2"><code>Booleano</code></td>
+                                        <td class="p-2">✅ Sim</td>
+                                        <td class="p-2">Define o papel. Padrão: <code>false</code>.</td>
+                                    </tr>
+                                     <tr class="border-b border-slate-200 dark:border-slate-700">
+                                        <td class="p-2"><code>bio</code></td>
+                                        <td class="p-2"><code>Texto Longo</code></td>
+                                        <td class="p-2">❌ Não</td>
+                                        <td class="p-2">Biografia do autor (preenchido pós-cadastro).</td>
+                                    </tr>
+                                     <tr class="border-b border-slate-200 dark:border-slate-700">
+                                        <td class="p-2"><code>avatar_url</code></td>
+                                        <td class="p-2"><code>Texto</code></td>
+                                        <td class="p-2">❌ Não</td>
+                                        <td class="p-2">URL para a foto de perfil.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-green-50 dark:bg-slate-800 border-l-4 border-green-400 dark:border-green-500 rounded">
+                            <h4 class="font-semibold text-green-800 dark:text-green-300">⭐ Recomendação Estratégica Importante:</h4>
+                            <p class="text-sm text-green-700 dark:text-green-400 mt-1">Pedir muitos dados no cadastro (telefone, cidade, etc.) diminui drasticamente a taxa de conversão. A melhor estratégia é: <strong>1. No cadastro, peça apenas o essencial</strong> (Nome, Email, Senha). <strong>2. No Dashboard, incentive o usuário a completar o perfil</strong> para uma melhor experiência.</p>
+                        </div>
+
+                         <h3 class="text-xl font-semibold mt-8 mb-2">Tabela `books` (Obras Publicadas)</h3>
+                         <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">A estrutura para os livros permanece a mesma, otimizada para performance ao incluir o nome do autor (denormalização).</p>
+                        <div class="overflow-x-auto">
+                           <table class="w-full text-sm mt-4">
+                                <thead class="text-left bg-slate-200 dark:bg-slate-800">
+                                    <tr>
+                                        <th class="p-2">Nome do Campo</th>
+                                        <th class="p-2">Tipo de Dado</th>
+                                        <th class="p-2">Obrigatório?</th>
+                                        <th class="p-2">Descrição</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>id</code></td><td class="p-2"><code>UUID</code></td><td class="p-2">✅ Sim</td><td class="p-2">Chave primária.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>author_id</code></td><td class="p-2"><code>UUID</code></td><td class="p-2">✅ Sim</td><td class="p-2">Conecta com o autor em `profiles`.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>author_name</code></td><td class="p-2"><code>Texto</code></td><td class="p-2">✅ Sim</td><td class="p-2">Nome do autor (denormalizado).</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>title</code></td><td class="p-2"><code>Texto</code></td><td class="p-2">✅ Sim</td><td class="p-2">Título da obra.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>description</code></td><td class="p-2"><code>Texto Longo</code></td><td class="p-2">✅ Sim</td><td class="p-2">Sinopse do livro.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>cover_url</code></td><td class="p-2"><code>Texto</code></td><td class="p-2">✅ Sim</td><td class="p-2">URL da imagem da capa.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>category</code></td><td class="p-2"><code>Texto</code></td><td class="p-2">✅ Sim</td><td class="p-2">Categoria principal.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>price</code></td><td class="p-2"><code>Numérico</code></td><td class="p-2">✅ Sim</td><td class="p-2">Preço pretendido em BRL.</td></tr>
+                                    <tr class="border-b border-slate-200 dark:border-slate-700"><td class="p-2"><code>status</code></td><td class="p-2"><code>Texto</code></td><td class="p-2">✅ Sim</td><td class="p-2">'publicado' ou 'rascunho'.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="step-2" class="manual-section">
+                        <h2 data-title="Detalhes das Telas" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">2. Detalhes Finais das Telas do Piloto</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Com o modelo de dados definido, refinamos o escopo funcional de cada tela essencial para o piloto.</p>
+                        
+                        <div class="mt-6 space-y-6">
+                            <div>
+                                <h3 class="text-xl font-semibold">Tela 1: Home/Vitrine</h3>
+                                <ul class="list-disc list-inside mt-2 space-y-1 pl-4 text-sm">
+                                    <li>Exibição dos livros em grid (capa e título).</li>
+                                    <li>Barra de busca por título, categoria ou autor.</li>
+                                    <li>Filtros visíveis por categoria (ex: botões de filtro).</li>
+                                    <li>Clique em um livro leva para a `PaginaDetalheLivro`.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Tela 2: Página de Detalhes do Livro</h3>
+                                <ul class="list-disc list-inside mt-2 space-y-1 pl-4 text-sm">
+                                    <li>Layout de duas colunas (capa na esquerda, informações na direita).</li>
+                                    <li>Exibição de todos os dados do livro: capa, título, autor, categoria, descrição, preço.</li>
+                                    <li>**Nova Seção "Sobre o Autor"**: Abaixo dos detalhes, exibir a foto, nome e biografia do autor para criar conexão.</li>
+                                    <li>**Métrica Chave (CTA):** Botão "🔥 Tenho Interesse!" que, para usuários logados, registra a ação na tabela `interesses`.</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h3 class="text-xl font-semibold">Tela 3: Autenticação</h3>
+                                <ul class="list-disc list-inside mt-2 space-y-1 pl-4 text-sm">
+                                    <li>Interface com "flip card" animado para Login e Cadastro.</li>
+                                    <li>**Cadastro Simplificado:** Solicitar apenas Nome Completo, Email e Senha.</li>
+                                    <li>Oferecer login social (Google) como opção de menor atrito.</li>
+                                    <li>Após o primeiro login, incentivar o preenchimento do perfil no dashboard.</li>
+                                </ul>
+                            </div>
+                             <div>
+                                <h3 class="text-xl font-semibold">Tela 4: Dashboard</h3>
+                                <ul class="list-disc list-inside mt-2 space-y-1 pl-4 text-sm">
+                                    <li>**Componente Chave:** Seletor de modo "Modo Leitor" vs. "Modo Autor".</li>
+                                    <li>**Visão Leitor:** Lista de livros com interesse demonstrado.</li>
+                                    <li>**Visão Autor:** Cards de stats ("Livros Publicados", "Interesses Recebidos") e uma tabela para gerenciar (Editar/Excluir) as obras.</li>
+                                    <li>**Seção "Meu Perfil":** Área para o usuário preencher/editar os dados opcionais (bio, avatar, etc.).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <section id="step-3" class="manual-section">
+                        <h2 data-title="Sequência de Criação" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">3. Nova Sequência de Criação (Otimizada)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Esta é a ordem de desenvolvimento recomendada para construir o piloto de forma incremental e focada.</p>
+                        
+                        <ol class="list-decimal list-inside mt-6 space-y-4 pl-4">
+                            <li>
+                                <strong>Fundação e Autenticação:</strong>
+                                <ul class="list-disc list-inside mt-2 ml-6 text-sm">
+                                    <li>Configurar o projeto Next.js e conectá-lo ao Supabase.</li>
+                                    <li>Criar o schema do banco de dados (tabelas `profiles`, `books`, `interesses`) com as políticas de segurança.</li>
+                                    <li>Construir a tela de Autenticação (Login/Cadastro).</li>
+                                    <li>Criar o Header Dinâmico que reflete o estado da sessão.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>O Lado do Vendedor:</strong>
+                                 <ul class="list-disc list-inside mt-2 ml-6 text-sm">
+                                    <li>Construir a estrutura do Dashboard com o seletor de modo.</li>
+                                    <li>Focar na Visão "Modo Autor", implementando o CRUD de livros com upload de capa.</li>
+                                    <li>Exibir os stats simples.</li>
+                                </ul>
+                            </li>
+                             <li>
+                                <strong>A Exposição Pública:</strong>
+                                 <ul class="list-disc list-inside mt-2 ml-6 text-sm">
+                                    <li>Construir a Home/Vitrine para listar os livros.</li>
+                                    <li>Criar a Página de Detalhes do Livro.</li>
+                                    <li>Implementar a lógica do botão "Tenho Interesse!".</li>
+                                </ul>
+                            </li>
+                             <li>
+                                <strong>Fechando o Ciclo:</strong>
+                                 <ul class="list-disc list-inside mt-2 ml-6 text-sm">
+                                    <li>Implementar a Visão "Modo Leitor" no Dashboard.</li>
+                                    <li>Fazer o polimento final da interface e responsividade.</li>
+                                    <li>Lançar o teste para os "Pioneiros" e começar a coletar dados.</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            hljs.highlightAll();
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const updateIcons = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+            updateIcons();
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcons();
+            });
+            const sections = document.querySelectorAll('.manual-section');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const mobileMenu = document.getElementById('mobile-menu-items');
+            sections.forEach((section, index) => {
+                const id = section.id;
+                const title = section.querySelector('h2').dataset.title;
+                const step = index + 1;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = `${step}. ${title}`;
+                a.className = 'sidebar-link block border-l-2 border-transparent pl-4 py-1 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors';
+                li.appendChild(a);
+                if (sidebarNav) sidebarNav.appendChild(li);
+                const mobileLink = document.createElement('a');
+                mobileLink.href = `#${id}`;
+                mobileLink.className = 'mobile-menu-item flex-shrink-0 flex items-center p-1 rounded-full bg-slate-200 dark:bg-slate-700 transition-all duration-300 ease-in-out';
+                mobileLink.innerHTML = `<span class="item-number flex items-center justify-center h-8 w-8 rounded-full font-bold text-slate-600 dark:text-slate-300">${step}</span><span class="item-title hidden ml-2 mr-2 font-semibold whitespace-nowrap text-sm">${title}</span>`;
+                if (mobileMenu) mobileMenu.appendChild(mobileLink);
+                [a, mobileLink].forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = section.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        if (window.innerWidth < 1024) {
+                            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                                item.classList.remove('expanded', 'bg-indigo-100', 'dark:bg-indigo-900');
+                                item.querySelector('.item-title').classList.add('hidden');
+                            });
+                            mobileLink.classList.add('expanded', 'bg-indigo-100', 'dark:bg-indigo-900');
+                            mobileLink.querySelector('.item-title').classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('.code-container pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.textContent = 'Copiar';
+                btn.className = 'absolute top-2 right-2 px-2 py-1 text-xs rounded bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors opacity-50 hover:opacity-100';
+                pre.parentNode.insertBefore(btn, pre);
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pre.querySelector('code').innerText).then(() => {
+                        btn.textContent = 'Copiado!';
+                        setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+                    });
+                });
+            });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+                    const mobileItem = document.querySelector(`.mobile-menu-item[href="#${id}"]`);
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                        if (sidebarLink) sidebarLink.classList.add('active');
+                        document.querySelectorAll('.mobile-menu-item').forEach(i => i.classList.remove('active'));
+                        if (mobileItem) mobileItem.classList.add('active');
+                        if(mobileItem && !mobileItem.classList.contains('expanded')) {
+                           mobileItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
+                    }
+                });
+            }, { rootMargin: "-20% 0px -80% 0px" });
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>

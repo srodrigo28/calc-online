@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Técnico: Fundação do Banco de Dados</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <style>
+        /* Cor de destaque: Indigo (Inovação/Estratégia) */
+        .sidebar-link.active { color: #6366f1; font-weight: 600; border-left-color: #6366f1; }
+        .dark .sidebar-link.active { color: #818cf8; border-left-color: #818cf8; }
+        .mobile-menu-item .item-number { transition: all 0.3s ease; }
+        .mobile-menu-item.active .item-number { background-color: #6366f1; color: white; }
+        .dark .mobile-menu-item.active .item-number { background-color: #818cf8; color: #1e293b; }
+        .mobile-menu-item.expanded { background-color: #eef2ff; }
+        .dark .mobile-menu-item.expanded { background-color: #3730a3; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-track { background: #f1f1f1; } .dark ::-webkit-scrollbar-track { background: #2d3748; } ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; } ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-200">
+    <button id="theme-toggle" class="fixed bottom-4 right-4 z-50 p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-slate-100 shadow-md">
+        <svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+    </button>
+    
+    <div id="mobile-menu" class="lg:hidden fixed top-0 left-0 right-0 p-2 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm shadow-lg z-40"><div id="mobile-menu-items" class="flex items-center space-x-2 overflow-x-auto pb-1"></div></div>
+    <div class="flex">
+        <aside class="fixed top-0 left-0 h-screen w-64 p-4 border-r border-slate-200 dark:border-slate-800 hidden lg:block"><h2 class="text-xl font-bold mb-4">Índice do Script</h2><nav><ol id="sidebar-nav" class="space-y-2"></ol></nav></aside>
+        <main class="w-full lg:ml-64 p-4 md:p-8 pt-20 lg:pt-8 pb-24">
+            <div class="max-w-4xl mx-auto">
+                <header class="mb-12"><h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">Guia de Implementação do Banco de Dados</h1><p class="text-lg text-slate-600 dark:text-slate-400 mt-3">Script SQL completo para a fundação da plataforma E-Leitor Seguro no Supabase.</p></header>
+                <div id="manual-content" class="space-y-16">
+                    
+                    <section id="step-1" class="manual-section">
+                        <h2 data-title="Visão Geral do Script" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">1. Visão Geral do Script</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Este script SQL é a fundação completa da sua plataforma no Supabase para a fase piloto. Ele foi criado com as melhores práticas em mente para garantir integridade, segurança e automação dos dados desde o início.</p>
+                        <h3 class="text-xl font-semibold mt-6 mb-2">O que este script faz:</h3>
+                        <ul class="list-disc list-inside mt-4 space-y-2 pl-4">
+                            <li><strong>Estrutura:</strong> Cria as tabelas `profiles`, `books` e `interesses` com todos os campos e relações que definimos.</li>
+                            <li><strong>Automação:</strong> Configura um gatilho que cria um perfil para cada novo usuário que se cadastra.</li>
+                            <li><strong>Segurança de Dados:</strong> Implementa um conjunto robusto de regras (RLS) para garantir que um usuário só possa acessar e modificar seus próprios dados.</li>
+                            <li><strong>Segurança de Arquivos:</strong> Define políticas para o Supabase Storage, garantindo que apenas autores possam fazer upload de capas para suas obras.</li>
+                        </ul>
+                         <div class="mt-6 p-4 bg-indigo-50 dark:bg-slate-800 border-l-4 border-indigo-400 dark:border-indigo-500 rounded">
+                            <p class="font-semibold text-indigo-800 dark:text-indigo-300">Como Usar:</p>
+                            <p class="text-sm text-indigo-700 dark:text-indigo-400 mt-1">Copie e cole o código de cada passo diretamente no **SQL Editor** do seu projeto Supabase e clique em "RUN".</p>
+                        </div>
+                    </section>
+
+                    <section id="step-2" class="manual-section">
+                        <h2 data-title="Passo 1: Tipos (ENUMs)" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">2. Passo 1: Definição de Tipos (ENUMs)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Usar ENUMs garante a integridade dos dados para campos que têm um conjunto fixo de valores possíveis, como o status de um livro.</p>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">CREATE TYPE public.book_status AS ENUM (
+    'rascunho',
+    'publicado'
+);
+
+COMMENT ON TYPE public.book_status IS 'Define os status possíveis para um livro: "rascunho" (visível apenas para o autor) e "publicado" (visível para todos).';</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section id="step-3" class="manual-section">
+                        <h2 data-title="Passo 2: Tabelas Principais" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">3. Passo 2: Criação das Tabelas Principais</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Definição das tabelas `profiles`, `books` e `interesses` que formam o núcleo da aplicação piloto.</p>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">-- Tabela: profiles
+-- Armazena os dados públicos e privados de TODOS os usuários.
+CREATE TABLE public.profiles (
+    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    email TEXT UNIQUE NOT NULL,
+    full_name TEXT NOT NULL,
+    phone_number TEXT,
+    gender TEXT,
+    country TEXT DEFAULT 'Brasil'::text NOT NULL,
+    state TEXT,
+    city TEXT,
+    is_author BOOLEAN DEFAULT false NOT NULL,
+    bio TEXT,
+    nationality TEXT,
+    avatar_url TEXT,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+
+COMMENT ON TABLE public.profiles IS 'Tabela de perfis para todos os usuários, vinculada ao sistema de autenticação do Supabase.';
+
+-- Tabela: books
+-- Armazena todas as informações sobre as obras cadastradas pelos autores.
+CREATE TABLE public.books (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    author_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    author_name TEXT NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT NOT NULL,
+    cover_url TEXT NOT NULL,
+    category TEXT NOT NULL,
+    price NUMERIC(10, 2) NOT NULL,
+    status public.book_status DEFAULT 'rascunho'::public.book_status NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL
+);
+
+COMMENT ON TABLE public.books IS 'Armazena os dados de todas as obras cadastradas na plataforma.';
+
+-- Tabela: interesses
+-- Registra quando um usuário demonstra interesse em um livro.
+CREATE TABLE public.interesses (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+    book_id UUID NOT NULL REFERENCES public.books(id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    CONSTRAINT unique_interest UNIQUE (user_id, book_id)
+);
+
+COMMENT ON TABLE public.interesses IS 'Registra o interesse de um usuário em um livro específico. Valida a demanda.';</code></pre>
+                        </div>
+                    </section>
+                    
+                    <section id="step-4" class="manual-section">
+                        <h2 data-title="Passo 3: Sincronização de Usuários" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">4. Passo 3: Sincronização Automática (Triggers)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Esta função e gatilho criam automaticamente um perfil na tabela `profiles` sempre que um novo usuário se cadastra no sistema de autenticação do Supabase. É um passo crucial para manter as tabelas `auth.users` e `public.profiles` sincronizadas.</p>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  INSERT INTO public.profiles (id, email, full_name)
+  VALUES (new.id, new.email, new.raw_user_meta_data->>'full_name');
+  RETURN new;
+END;
+$$;
+
+CREATE TRIGGER on_auth_user_created
+AFTER INSERT ON auth.users
+FOR EACH ROW
+EXECUTE FUNCTION public.handle_new_user();
+
+COMMENT ON FUNCTION public.handle_new_user IS 'Cria automaticamente uma entrada na tabela de perfis quando um novo usuário se registra.';</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="step-5" class="manual-section">
+                        <h2 data-title="Passo 4: Segurança de Dados (RLS)" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">5. Passo 4: Políticas de Segurança (RLS)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">**ESSENCIAL!** Estas regras definem quem pode ver e modificar quais dados. Sem elas, seus dados estariam publicamente acessíveis. Primeiro, ativamos a RLS em todas as tabelas.</p>
+                        <div class="code-container relative mt-4">
+                             <pre><code class="language-sql">-- Ativar RLS para todas as tabelas
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.books ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.interesses ENABLE ROW LEVEL SECURITY;</code></pre>
+                        </div>
+                        <p class="mt-4">Agora, definimos as políticas de acesso para cada tabela.</p>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">-- Políticas para `profiles`
+CREATE POLICY "Usuários podem ver seu próprio perfil." ON public.profiles FOR SELECT USING (auth.uid() = id);
+CREATE POLICY "Usuários podem atualizar seu próprio perfil." ON public.profiles FOR UPDATE USING (auth.uid() = id);
+CREATE POLICY "Qualquer pessoa pode ver perfis públicos de autores." ON public.profiles FOR SELECT USING (is_author = true);
+
+-- Políticas para `books`
+CREATE POLICY "Qualquer pessoa pode ver livros publicados." ON public.books FOR SELECT USING (status = 'publicado');
+CREATE POLICY "Autores podem ver todos os seus próprios livros." ON public.books FOR SELECT USING (auth.uid() = author_id);
+CREATE POLICY "Autores podem cadastrar novos livros." ON public.books FOR INSERT WITH CHECK (auth.uid() = author_id);
+CREATE POLICY "Autores podem atualizar seus próprios livros." ON public.books FOR UPDATE USING (auth.uid() = author_id);
+CREATE POLICY "Autores podem deletar seus próprios livros." ON public.books FOR DELETE USING (auth.uid() = author_id);
+
+-- Políticas para `interesses`
+CREATE POLICY "Usuários podem registrar/ver/remover seu próprio interesse." ON public.interesses FOR ALL USING (auth.uid() = user_id);
+CREATE POLICY "Autores podem ver os interesses em seus livros." ON public.interesses FOR SELECT USING (
+    EXISTS (
+        SELECT 1 FROM public.books b
+        WHERE b.id = public.interesses.book_id AND b.author_id = auth.uid()
+    )
+);</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="step-6" class="manual-section">
+                        <h2 data-title="Passo 5: Segurança de Arquivos" class="text-3xl font-bold border-b border-slate-200 dark:border-slate-700 pb-2 mb-4">6. Passo 5: Políticas de Armazenamento (Storage)</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Estas políticas definem as regras para quem pode fazer upload e visualizar os arquivos de capa no Supabase Storage. Assumimos que você criará um bucket chamado `book_covers`.</p>
+                        <div class="code-container relative mt-4">
+                            <pre><code class="language-sql">-- 1. Torna o bucket de capas público para que todos possam ver as imagens
+INSERT INTO storage.buckets (id, name, public) 
+VALUES ('book_covers', 'book_covers', true)
+ON CONFLICT (id) DO UPDATE SET public = true;
+
+-- 2. Permite que usuários autenticados façam upload de capas
+CREATE POLICY "Autores podem fazer upload de capas."
+ON storage.objects FOR INSERT TO authenticated
+WITH CHECK ( bucket_id = 'book_covers' );
+
+-- 3. Garante que um autor só possa atualizar/deletar a capa de sua autoria
+-- (Esta política é mais complexa e depende da sua lógica de frontend,
+-- mas a de upload já é um ótimo começo de segurança)
+CREATE POLICY "Autores podem atualizar/deletar suas próprias capas."
+ON storage.objects FOR (UPDATE, DELETE) TO authenticated
+USING (
+  bucket_id = 'book_covers' AND
+  -- Verifica se o ID do autor na tabela 'books' corresponde ao usuário logado
+  -- e se a URL da capa no registro do livro é a que está sendo modificada.
+  EXISTS (
+    SELECT 1 FROM public.books
+    WHERE books.author_id = auth.uid() AND books.cover_url LIKE '%' || name
+  )
+);</code></pre>
+                        </div>
+                         <div class="mt-6 p-4 bg-yellow-50 dark:bg-slate-800 border-l-4 border-yellow-400 dark:border-yellow-500 rounded">
+                            <h4 class="font-semibold text-yellow-800 dark:text-yellow-300">💡 Ponto de Atenção (Robustez):</h4>
+                            <p class="text-sm text-yellow-700 dark:text-yellow-400 mt-1">A política de atualização de arquivos é avançada. Uma abordagem mais simples no frontend é nomear os arquivos de capa com o `book_id` (ex: `book_covers/livro-xyz.png`). No backend, antes de atualizar, você verificaria se o `author_id` do livro corresponde ao usuário logado.</p>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            hljs.highlightAll();
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const updateIcons = () => {
+                if (document.documentElement.classList.contains('dark')) {
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                } else {
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                }
+            };
+            updateIcons();
+            themeToggleBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateIcons();
+            });
+            const sections = document.querySelectorAll('.manual-section');
+            const sidebarNav = document.getElementById('sidebar-nav');
+            const mobileMenu = document.getElementById('mobile-menu-items');
+            sections.forEach((section, index) => {
+                const id = section.id;
+                const title = section.querySelector('h2').dataset.title;
+                const step = index + 1;
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = `${step}. ${title}`;
+                a.className = 'sidebar-link block border-l-2 border-transparent pl-4 py-1 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors';
+                li.appendChild(a);
+                if (sidebarNav) sidebarNav.appendChild(li);
+                const mobileLink = document.createElement('a');
+                mobileLink.href = `#${id}`;
+                mobileLink.className = 'mobile-menu-item flex-shrink-0 flex items-center p-1 rounded-full bg-slate-200 dark:bg-slate-700 transition-all duration-300 ease-in-out';
+                mobileLink.innerHTML = `<span class="item-number flex items-center justify-center h-8 w-8 rounded-full font-bold text-slate-600 dark:text-slate-300">${step}</span><span class="item-title hidden ml-2 mr-2 font-semibold whitespace-nowrap text-sm">${title}</span>`;
+                if (mobileMenu) mobileMenu.appendChild(mobileLink);
+                [a, mobileLink].forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const headerOffset = 80;
+                        const elementPosition = section.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                        if (window.innerWidth < 1024) {
+                            document.querySelectorAll('.mobile-menu-item').forEach(item => {
+                                item.classList.remove('expanded', 'bg-indigo-100', 'dark:bg-indigo-900');
+                                item.querySelector('.item-title').classList.add('hidden');
+                            });
+                            mobileLink.classList.add('expanded', 'bg-indigo-100', 'dark:bg-indigo-900');
+                            mobileLink.querySelector('.item-title').classList.remove('hidden');
+                        }
+                    });
+                });
+            });
+            document.querySelectorAll('.code-container pre').forEach(pre => {
+                const btn = document.createElement('button');
+                btn.textContent = 'Copiar';
+                btn.className = 'absolute top-2 right-2 px-2 py-1 text-xs rounded bg-slate-600 text-white hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-800 transition-colors opacity-50 hover:opacity-100';
+                pre.parentNode.insertBefore(btn, pre);
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pre.querySelector('code').innerText).then(() => {
+                        btn.textContent = 'Copiado!';
+                        setTimeout(() => { btn.textContent = 'Copiar'; }, 2000);
+                    });
+                });
+            });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`.sidebar-link[href="#${id}"]`);
+                    const mobileItem = document.querySelector(`.mobile-menu-item[href="#${id}"]`);
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+                        if (sidebarLink) sidebarLink.classList.add('active');
+                        document.querySelectorAll('.mobile-menu-item').forEach(i => i.classList.remove('active'));
+                        if (mobileItem) mobileItem.classList.add('active');
+                        if(mobileItem && !mobileItem.classList.contains('expanded')) {
+                           mobileItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                        }
+                    }
+                });
+            }, { rootMargin: "-20% 0px -80% 0px" });
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body>
+</html>
