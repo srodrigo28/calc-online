@@ -2,7 +2,7 @@
 #### 01 Passo
 npm install next-auth@beta
 "next-auth": "^5.0.0-beta.29",
-
+* teste
 #### 02 Passo
 npx auth secret
 
