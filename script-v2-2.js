@@ -1,7 +1,7 @@
-// ver 2.2 script.js
+// ver 2.2.1 script.js
 
 const supabaseUrl = 'https://qlmmdhklaqyxpdctykjk.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbW1kaGtsYXF5eHBkY3R5a2prIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2MzMxNzEsImV4cCI6MjA2NDIwOTE3MX0.EZyjWN4QT-Yf5f46dUKSE-sfQoWMIXtIAQPsekQvqzA' // mantenha o seu
 const sb = supabase.createClient(supabaseUrl, supabaseKey)
 
 let idParaExcluir = null
@@ -40,6 +40,13 @@ async function confirmarExclusao() {
   await sb.from('registros_financeiros').delete().eq('id', idParaExcluir)
   fecharConfirmacao()
   await carregarDados(getDataSelecionada())
+}
+
+function abrirModalSemRegistros() {
+  $('#modalSemRegistros').removeClass('hidden')
+}
+function fecharModalSemRegistros() {
+  $('#modalSemRegistros').addClass('hidden')
 }
 
 function atualizarDataHora() {
@@ -104,17 +111,12 @@ async function carregarDados(dataEscolhida) {
   tabela.clear()
 
   if (!registros || registros.length === 0) {
-    $('#cardsCategorias').append(`
-      <div class="col-span-full text-center text-gray-600 py-6 bg-white rounded shadow border border-dashed border-gray-300">
-        <p class="text-lg font-semibold">Nenhum registro encontrado para esta data.</p>
-      </div>
-    `)
+    abrirModalSemRegistros()
     tabela.draw()
     $('#totalGeral').text('R$ 0,00')
     return
   }
 
-  // Recarrega cards principais e categorias com base nos registros filtrados
   const totalEntradas = registros
     .filter(r => r.tipo === 'entrada')
     .reduce((acc, r) => acc + r.valor_total, 0)
@@ -215,8 +217,8 @@ $(document).ready(() => {
   carregarDados(getDataSelecionada())
 
   $('#filtroData').on('change', () => {
-    const novaData = getDataSelecionada()
-    carregarDados(novaData)
+    fecharModalSemRegistros()
+    carregarDados(getDataSelecionada())
   })
 
   window.abrirModal = abrirModal
@@ -225,4 +227,5 @@ $(document).ready(() => {
   window.mostrarConfirmacaoExclusao = mostrarConfirmacaoExclusao
   window.fecharConfirmacao = fecharConfirmacao
   window.confirmarExclusao = confirmarExclusao
+  window.fecharModalSemRegistros = fecharModalSemRegistros
 })

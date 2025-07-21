@@ -72,6 +72,16 @@
     />
   </div>
 
+  <div id="modalSemRegistros" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-6 rounded-lg w-full max-w-md shadow-lg text-center">
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Sem registros encontrados</h2>
+    <p class="text-gray-600">Não há movimentações cadastradas para a data selecionada.</p>
+    <button onclick="fecharModalSemRegistros()" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Entendi
+    </button>
+  </div>
+</div>
+
   <!-- CARDS RESUMO -->
   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4 mt-8">
     <div class="bg-green-100 border-l-4 border-green-600 p-4 shadow rounded">
